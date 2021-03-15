@@ -1,0 +1,5 @@
+변수 명은 보고 한번에 알 수 있을 정도로 만들 것
+종목 이름 : stock_name
+외국인 순매매량 : foreign_trading_volume
+외국인 보유율 : foreign_rate
+날짜 : stock_date
