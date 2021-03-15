@@ -1,16 +1,18 @@
 import scrapy
 from foreign_stock.items import ForeignStockItem
 from scrapy.http import Request
+import os
 
 class StockbotsSpider(scrapy.Spider):
     name = 'stockbots'
     allowed_domains = ['finance.naver.com']
     start_urls= []
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
     def __init__(self):
         base_url = 'https://finance.naver.com/item/frgn.nhn?code={0}&page={1}'
         start_page = 1
-        with open('./stock_list.txt', 'r') as stock_list:
+        with open(self.BASE_DIR + '/stock_list.txt', 'r') as stock_list:
             for stock in stock_list:
                 for p in range(3):
                     temp_url = base_url.format(stock, start_page + p)
