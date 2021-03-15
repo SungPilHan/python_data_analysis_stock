@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = 'HSP_stock_news.spiders'
 #USER_AGENT = 'HSP_stock_news (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -86,3 +86,11 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+DEFAULT_REQUEST_HEADERS = {
+    'Referer': 'https://finance.naver.com/' 
+}
+
+FEED_FORMAT = 'json'
+FEED_URI = 'HSP_stock_news.json'
+FEED_EXPORT_ENCODING = 'utf-8'

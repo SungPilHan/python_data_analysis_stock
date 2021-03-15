@@ -1,6 +1,5 @@
 import scrapy
 from foreign_stock.items import ForeignStockItem
-from scrapy.http import Request
 import os
 
 class StockbotsSpider(scrapy.Spider):

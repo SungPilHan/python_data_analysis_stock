@@ -9,4 +9,7 @@ import scrapy
 class HspStockNewsItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    article_title = scrapy.Field()
+    article_url = scrapy.Field()
+    article_author = scrapy.Field()
+    article_date = scrapy.Field()
