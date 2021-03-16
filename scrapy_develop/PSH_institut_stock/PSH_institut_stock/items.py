@@ -6,9 +6,7 @@
 import scrapy
 
 
-class InstitutStockItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+class PshInstitutStockItem(scrapy.Item):
     stock_name = scrapy.Field()
     stock_date = scrapy.Field()
     institut_trading_volume = scrapy.Field()

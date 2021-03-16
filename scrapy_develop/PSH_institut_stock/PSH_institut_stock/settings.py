@@ -1,4 +1,4 @@
-# Scrapy settings for institut_stock project
+# Scrapy settings for PSH_institut_stock project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'institut_stock'
+BOT_NAME = 'PSH_institut_stock'
 
-SPIDER_MODULES = ['institut_stock.spiders']
-NEWSPIDER_MODULE = 'institut_stock.spiders'
+SPIDER_MODULES = ['PSH_institut_stock.spiders']
+NEWSPIDER_MODULE = 'PSH_institut_stock.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'institut_stock (+http://www.yourdomain.com)'
+#USER_AGENT = 'PSH_institut_stock (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -45,13 +45,13 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 1
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'institut_stock.middlewares.InstitutStockSpiderMiddleware': 543,
+#    'PSH_institut_stock.middlewares.PshInstitutStockSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'institut_stock.middlewares.InstitutStockDownloaderMiddleware': 543,
+#    'PSH_institut_stock.middlewares.PshInstitutStockDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'institut_stock.pipelines.InstitutStockPipeline': 300,
+#    'PSH_institut_stock.pipelines.PshInstitutStockPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -92,5 +92,5 @@ DEFAULT_REQUEST_HEADERS = {
 }
 
 FEED_FORMAT = 'json'
-FEED_URI = 'institut_stock.json'
+FEED_URI = 'PSH_institut_stock.json'
 FEED_EXPORT_ENCODING = 'utf-8'
