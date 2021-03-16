@@ -12,3 +12,4 @@ class InstitutStockItem(scrapy.Item):
     stock_name = scrapy.Field()
     stock_date = scrapy.Field()
     institut_trading_volume = scrapy.Field()
+
