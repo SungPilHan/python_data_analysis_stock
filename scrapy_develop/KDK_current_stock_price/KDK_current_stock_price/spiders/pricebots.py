@@ -27,8 +27,8 @@ class PricebotsSpider(scrapy.Spider):
         print(selling_prices,selling_volumes,buying_prices,buying_volumes)
         for idx in range(len(selling_volumes)):#len
             item = KdkCurrentStockPriceItem()
-            item['seling_price'] = selling_prices[idx].strip()
-            item['seling_volume'] = selling_volumes[idx].strip()
+            item['selling_price'] = selling_prices[idx].strip()
+            item['selling_volume'] = selling_volumes[idx].strip()
             item['buying_price'] = buying_prices[idx].strip()
             item['buying_volume'] = buying_volumes[idx].strip()#매수 잔량
             items.append(item)
