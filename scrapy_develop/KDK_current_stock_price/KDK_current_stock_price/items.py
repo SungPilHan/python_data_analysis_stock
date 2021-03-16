@@ -9,6 +9,7 @@ import scrapy
 class KdkCurrentStockPriceItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    stock_name= scrapy.Field()
     buying_volume= scrapy.Field()
     buying_price = scrapy.Field()
     selling_volume= scrapy.Field()

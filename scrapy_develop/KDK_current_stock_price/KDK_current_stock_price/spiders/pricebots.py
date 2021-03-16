@@ -19,14 +19,19 @@ class PricebotsSpider(scrapy.Spider):
                     self.start_urls.append(temp_url)
 
     def parse(self, response):
+        stock_names=response.xpath('//*[@id="middle"]/div[1]/div[1]/h2/a/text()').extract()
         selling_prices = response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr/td[2]/span/text()').extract()
         selling_volumes = response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr/td[1]/span/text()').extract()
         buying_prices = response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr/td[4]/span/text()').extract()
         buying_volumes = response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr/td[5]/span/text()').extract()
+        
         items = []
+        
         print(selling_prices,selling_volumes,buying_prices,buying_volumes)
+        
         for idx in range(len(selling_volumes)):#len
             item = KdkCurrentStockPriceItem()
+            item['stock_name'] = stock_names[0].strip()
             item['selling_price'] = selling_prices[idx].strip()
             item['selling_volume'] = selling_volumes[idx].strip()
             item['buying_price'] = buying_prices[idx].strip()
