@@ -20,6 +20,11 @@ class PricebotsSpider(scrapy.Spider):
 
     def parse(self, response):
         stock_names=response.xpath('//*[@id="middle"]/div[1]/div[1]/h2/a/text()').extract()
+        buying_volume_nows=response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr[7]/td[1]/span/strong/text()').extract()
+        buying_price_nows=response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr[7]/td[2]/span/strong/text()').extract()
+        selling_volume_nows=response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr[11]/td[4]/span/strong/text()').extract()
+        selling_price_nows=response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr[11]/td[5]/span/strong/text()').extract()
+        
         selling_prices = response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr/td[2]/span/text()').extract()
         selling_volumes = response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr/td[1]/span/text()').extract()
         buying_prices = response.xpath('//*[@id="content"]/div[2]/div[2]/table[1]/tbody/tr/td[4]/span/text()').extract()
@@ -29,13 +34,20 @@ class PricebotsSpider(scrapy.Spider):
         
         print(selling_prices,selling_volumes,buying_prices,buying_volumes)
         
-        for idx in range(len(selling_volumes)):#len
+
+        buying_volumes.append(buying_volume_nows[0].strip())
+        buying_prices.append(buying_price_nows[0].strip())
+        selling_volumes.append(selling_volume_nows[0].strip())
+        selling_prices.append(selling_price_nows[0].strip())
+
+        for idx in range(len(selling_volumes)):#len]
             item = KdkCurrentStockPriceItem()
             item['stock_name'] = stock_names[0].strip()
             item['selling_price'] = selling_prices[idx].strip()
             item['selling_volume'] = selling_volumes[idx].strip()
             item['buying_price'] = buying_prices[idx].strip()
-            item['buying_volume'] = buying_volumes[idx].strip()#매수 잔량
+            item['buying_volume'] = buying_volumes[idx].strip()
+           
             items.append(item)
         
         return items
