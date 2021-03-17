@@ -53,11 +53,11 @@ class Mdproject3:
             plt.ticklabel_format(axis='y', style='plain')      
             ax1.xaxis.set_ticks_position('bottom')
             ax1.yaxis.set_ticks_position('left')
-            ax1.set_title(i+'foreign_stock')
+            ax1.set_title(i+'_foreign_stock')
             plt.xlabel('day')
             plt.ylabel('volume')
             plt.savefig('foreign_plot {}.png'.format(i), dpi=400, bbox_inches='tight')
-            plt.show()
+            ax1.set_xlim(ax1.get_xlim()[::-1])
 
 if __name__ == '__main__':
     Mdproject3()
