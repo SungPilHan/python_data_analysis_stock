@@ -19,7 +19,6 @@ class NewsbotsSpider(scrapy.Spider):
                     self.start_urls.append(temp_url)
 
     def parse(self, response):
-        #print(response.text)
         article_titles = response.xpath('/html/body/div/table[1]/tbody/tr/td[1]/a/text()').extract()
         article_urls = response.xpath('/html/body/div/table[1]/tbody/tr/td[1]/a/@href').extract()
         article_authors = response.xpath('/html/body/div/table[1]/tbody/tr/td[2]/text()').extract()
@@ -28,9 +27,10 @@ class NewsbotsSpider(scrapy.Spider):
         items = []
         for idx in range(len(article_titles)):
             item = HspStockNewsItem()
+            item['stock_code'] = str(response).split('?')[1].split('&')[0].split('=')[1].strip()
             item['article_title'] = article_titles[idx].strip()
             item['article_url'] = 'https://finance.naver.com' + article_urls[idx].strip()
             item['article_author'] = article_authors[idx].strip()
-            item['article_date'] = article_dates[idx].strip()
+            item['article_date'] = article_dates[idx].split(' ')[0].strip().replace('.','-')
             items.append(item)
         return items
