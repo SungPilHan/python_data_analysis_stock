@@ -1,0 +1,84 @@
+echo '
+{
+"name" : "my-source-connect-foreign",
+"config" : {
+"connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"mode": "incrementing",
+"incrementing.column.name" : "id",
+"table.whitelist":"foreign_table",
+"topic.prefix" : "my_topic_",
+"tasks.max" : "1"
+}
+}
+' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name" : "my-source-connect-institut",
+"config" : {
+"connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"mode": "incrementing",
+"incrementing.column.name" : "id",
+"table.whitelist":"institut_table",
+"topic.prefix" : "my_topic_",
+"tasks.max" : "1"
+}
+}
+' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name" : "my-source-connect-news",
+"config" : {
+"connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"mode": "incrementing",
+"incrementing.column.name" : "id",
+"table.whitelist":"news_table",
+"topic.prefix" : "my_topic_",
+"tasks.max" : "1"
+}
+}
+' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name" : "my-source-connect-price-buy",
+"config" : {
+"connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"mode": "incrementing",
+"incrementing.column.name" : "id",
+"table.whitelist":"price_buy_table",
+"topic.prefix" : "my_topic_",
+"tasks.max" : "1"
+}
+}
+' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name" : "my-source-connect-price-sell",
+"config" : {
+"connector.class" : "io.confluent.connect.jdbc.JdbcSourceConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"mode": "incrementing",
+"incrementing.column.name" : "id",
+"table.whitelist":"price_sell_table",
+"topic.prefix" : "my_topic_",
+"tasks.max" : "1"
+}
+}
+' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"

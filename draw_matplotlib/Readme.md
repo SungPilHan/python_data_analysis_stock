@@ -6,4 +6,4 @@
 * 클레스를 사용하여 제작
   * 매개 변수를 받는 함수를 통해 사용할 수 있도록 구현
   * ex) draw_graph(stock_name="삼성전자", start_date="2021-01-01", end_date="2021-03-01")
-  
+  * 테스트 시 DB는 mydb_test를 사용하고 실제 적용시 mydb로 변경

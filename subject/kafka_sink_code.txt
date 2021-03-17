@@ -1,0 +1,84 @@
+echo '
+{
+"name":"my-sink-connect-foreign",
+"config":{
+"connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"auto.create":"true",
+"auto.evolve":"true",
+"delete.enabled":"false",
+"tasks.max":"1",
+"topics":"my_topic_foreign_table"
+}
+}
+'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name":"my-sink-connect-institut",
+"config":{
+"connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"auto.create":"true",
+"auto.evolve":"true",
+"delete.enabled":"false",
+"tasks.max":"1",
+"topics":"my_topic_institut_table"
+}
+}
+'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name":"my-sink-connect-news",
+"config":{
+"connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"auto.create":"true",
+"auto.evolve":"true",
+"delete.enabled":"false",
+"tasks.max":"1",
+"topics":"my_topic_news_table"
+}
+}
+'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name":"my-sink-connect-price-buy",
+"config":{
+"connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"auto.create":"true",
+"auto.evolve":"true",
+"delete.enabled":"false",
+"tasks.max":"1",
+"topics":"my_topic_price_buy_table"
+}
+}
+'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
+
+echo '
+{
+"name":"my-sink-connect-price-sell",
+"config":{
+"connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+"connection.url":"jdbc:mysql://skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com:3306/mydb",
+"connection.user":"admin",
+"connection.password":"y1syitq0is",
+"auto.create":"true",
+"auto.evolve":"true",
+"delete.enabled":"false",
+"tasks.max":"1",
+"topics":"my_topic_price_sell_table"
+}
+}
+'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"
