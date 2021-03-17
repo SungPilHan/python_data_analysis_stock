@@ -31,6 +31,6 @@ class NewsbotsSpider(scrapy.Spider):
             item['article_title'] = article_titles[idx].strip()
             item['article_url'] = 'https://finance.naver.com' + article_urls[idx].strip()
             item['article_author'] = article_authors[idx].strip()
-            item['article_date'] = article_dates[idx].split(' ')[0].strip().replace('.','-')
+            item['article_date'] = article_dates[idx].strip().split(' ')[0].strip().replace('.','-')
             items.append(item)
         return items
