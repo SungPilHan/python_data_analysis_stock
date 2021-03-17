@@ -18,7 +18,7 @@ class ForeignStockPipeline:
             value_serializer=lambda x: dumps(x).encode('utf-8'))
 
     def process_item(self, item, spider):        
-        data = {"schema":{"type":"struct","fields":[{"type":"int32","optional":"false","field":"id"},{"type":"string","optional":"false","field":"stock_name"},{"type":"string","optional":"false","field":"stock_date"},{"type":"string","optional":"false","field":"foreign_trading_volume"},{"type":"string","optional":"false","field":"foreign_rate"},{"type":"int64","optional":"true","name":"org.apache.kafka.connect.data.Timestamp","version":1,"field":"create_at"}],"optional":"false","name":"foreign_table"},"payload":{"id":0,"stock_name":item.get('stock_name'),"stock_date":item.get('stock_data'),"foreign_trading_volume":item.get('foreign_trading_volume'),"foreign_rate":item.get('foreign_rate'),"create_at":int(time.time())*1000}}
+        data = {"schema":{"type":"struct","fields":[{"type":"int32","optional":"false","field":"id"},{"type":"string","optional":"false","field":"stock_name"},{"type":"string","optional":"false","field":"stock_date"},{"type":"string","optional":"false","field":"foreign_trading_volume"},{"type":"string","optional":"false","field":"foreign_rate"},{"type":"int64","optional":"true","name":"org.apache.kafka.connect.data.Timestamp","version":1,"field":"create_at"}],"optional":"false","name":"foreign_table"},"payload":{"id":0,"stock_name":item.get('stock_name'),"stock_date":item.get('stock_date'),"foreign_trading_volume":item.get('foreign_trading_volume'),"foreign_rate":item.get('foreign_rate'),"create_at":int(time.time())*1000}}
         self.producer.send('my_topic_foreign_table', value=data)
         time.sleep(0.3)
         self.producer.flush()
