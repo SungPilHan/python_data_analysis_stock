@@ -55,9 +55,8 @@ class Mdproject3:
             ax1.set_title(i+'_foreign_stock')
             plt.xlabel('day')
             plt.ylabel('volume')
-            #plt.savefig('foreign_plot {}.png'.format(i), dpi=400, bbox_inches='tight')
+            plt.savefig('foreign_plot {}.png'.format(i), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
-            plt.show()
 if __name__ == '__main__':
     num=input("data 개수를 입력해 주세요:")
     num=int(num)
