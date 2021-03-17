@@ -89,6 +89,7 @@ ITEM_PIPELINES = {
 DEFAULT_REQUEST_HEADERS = {
     'Referer': 'https://finance.naver.com/' 
 }
-FEED_FORMAT = 'json'
-FEED_URI = 'current_price.json'
-FEED_EXPORT_ENCODING = 'utf-8'
+
+#FEED_FORMAT = 'json'
+#FEED_URI = 'current_price.json'
+#FEED_EXPORT_ENCODING = 'utf-8'
