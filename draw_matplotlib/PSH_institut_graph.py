@@ -55,7 +55,6 @@ class InstitutPlot:
 
 
             ax1.bar(plt_index, newpddata['institut_trading_volume'][:60], color='darkblue')
-            ax1.plot(plt_index, newpddata['institut_trading_volume'][:60], color='red')
             
             plt.xticks(plt_index, newpddata['time_day'][:60], rotation=45, fontsize='small')
             plt.ticklabel_format(axis='y', style='plain')      
@@ -65,8 +64,8 @@ class InstitutPlot:
             
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('institut_plot {}.png'.format(i), dpi=400, bbox_inches='tight')
-            plt.show()
+            plt.savefig('./institut_plot_{}.png'.format(i), dpi=400, bbox_inches='tight')
+            ax1.set_xlim(ax1.get_xlim()[::-1])
 
 if __name__ == '__main__':
     InstitutPlot()
