@@ -20,12 +20,8 @@ class InstitutbotsSpider(scrapy.Spider):
                     self.start_urls.append(temp_url)
 
     def parse(self, response):
-        print('************************')
-        print(response.xpath('//*[@id="middle"]/div[1]/div[1]/h2/a/text()').extract())
-        print(response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[1]/span/text()').extract())
-        print(response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[6]/span/text()').extract())
-        print('************************')
         stock_names = response.xpath('//*[@id="middle"]/div[1]/div[1]/h2/a/text()').extract()
+        stock_codes = response.xpath('//*[@id="middle"]/div[1]/div[1]/div/span[1]/text()').extract()
         stock_dates = response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[1]/span/text()').extract()
         institut_trading_volumes = response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[6]/span/text()').extract()
 
@@ -33,6 +29,7 @@ class InstitutbotsSpider(scrapy.Spider):
         for idx in range(len(stock_dates)):
             item = PshInstitutStockItem()
             item['stock_name'] = stock_names[0].strip()
+            item['stock_code'] = stock_codes[0].strip()
             item['stock_date'] = stock_dates[idx].strip()
             item['institut_trading_volume'] = institut_trading_volumes[idx].strip()
             items.append(item)

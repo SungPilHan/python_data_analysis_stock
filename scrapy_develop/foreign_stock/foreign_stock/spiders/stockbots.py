@@ -19,12 +19,10 @@ class StockbotsSpider(scrapy.Spider):
 
     def parse(self, response):
         print('************************')
-        print(response.xpath('//*[@id="middle"]/div[1]/div[1]/h2/a/text()').extract())
-        print(response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[1]/span/text()').extract())
-        print(response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[7]/span/text()').extract())
-        print(response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[9]/span/text()').extract())
+        print(response.xpath('//*[@id="middle"]/div[1]/div[1]/div/span[1]/text()').extract())
         print('************************')
         stock_names = response.xpath('//*[@id="middle"]/div[1]/div[1]/h2/a/text()').extract()
+        stock_codes = response.xpath('//*[@id="middle"]/div[1]/div[1]/div/span[1]/text()').extract()
         stock_dates = response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[1]/span/text()').extract()
         foreign_trading_volumes = response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[7]/span/text()').extract()
         foreign_rates = response.xpath('//*[@id="content"]/div[2]/table[1]/tr/td[9]/span/text()').extract()
@@ -33,6 +31,7 @@ class StockbotsSpider(scrapy.Spider):
         for idx in range(len(stock_dates)):
             item = ForeignStockItem()
             item['stock_name'] = stock_names[0].strip()
+            item['stock_code'] = stock_codes[0].strip()
             item['stock_date'] = stock_dates[idx].strip().replace('.', '-')
             item['foreign_trading_volume'] = foreign_trading_volumes[idx].strip()
             item['foreign_rate'] = foreign_rates[idx].strip()
