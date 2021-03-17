@@ -25,7 +25,6 @@ class Mdproject3:
         return x.split(' ')[0]
     def time_second(self, x):
         return x.split(' ')[1].split(":")[2]
-
     def save_data(self):
         show_db = '''SELECT * FROM my_topic_foreign_table'''
         self.cursor.execute(show_db)
@@ -48,12 +47,9 @@ class Mdproject3:
             plt_index = range(len(newpddata[:60]))
             fig = plt.figure(figsize=(12,6))
             ax1 = fig.add_subplot(1, 1, 1)
-            
             ax1.bar(plt_index, newpddata['foreign_trading_volume'][:60], color='darkblue')
             ax1.plot(plt_index,newpddata['foreign_trading_volume'][:60],color='red')
-            
             plt.xticks(plt_index, newpddata['time_day'][:60], rotation=70, fontsize='small')
-            
             plt.ticklabel_format(axis='y', style='plain')      
             ax1.xaxis.set_ticks_position('bottom')
             ax1.yaxis.set_ticks_position('left')
