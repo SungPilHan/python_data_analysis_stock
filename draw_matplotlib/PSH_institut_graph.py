@@ -12,11 +12,10 @@ plt.style.use('ggplot')
 
 
 class InstitutPlot:
-    def __init__(self):
+    def __init__(self,num):
         self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb_test')
         self.cursor = self.conn.cursor()
-        # self.cursor.close()
-        # self.connectdb.close()
+        self.num=num
         self.draw_graph()
 
     def newtime(self, x):
@@ -41,6 +40,7 @@ class InstitutPlot:
         return pddata
           
     def draw_graph(self):
+        
         pddata = self.save_data()
         stocks = set()
 
@@ -49,14 +49,14 @@ class InstitutPlot:
         stocks = list(stocks)
         for i in stocks:
             newpddata = pddata[pddata["stock_name"]==i]
-            plt_index = range(len(newpddata[:60]))
+            plt_index = range(len(newpddata[:self.num]))
             fig = plt.figure(figsize=(12,6))
             ax1 = fig.add_subplot(1, 1, 1)
 
 
-            ax1.bar(plt_index, newpddata['institut_trading_volume'][:60], color='darkblue')
+            ax1.bar(plt_index, newpddata['institut_trading_volume'][:self.num], color='darkblue')
             
-            plt.xticks(plt_index, newpddata['time_day'][:60], rotation=45, fontsize='small')
+            plt.xticks(plt_index, newpddata['time_day'][:self.num], rotation=45, fontsize='small')
             plt.ticklabel_format(axis='y', style='plain')      
             ax1.xaxis.set_ticks_position('bottom')
             ax1.yaxis.set_ticks_position('left')
@@ -64,9 +64,10 @@ class InstitutPlot:
             
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('./institut_plot_{}.png'.format(i), dpi=400, bbox_inches='tight')
+            plt.savefig('./institut_plot_{}_{}.png'.format(i,self.num), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
 
 if __name__ == '__main__':
-    InstitutPlot()
+    InstitutPlot(60)    
+
 
