@@ -33,7 +33,7 @@ class StockbotsSpider(scrapy.Spider):
         for idx in range(len(stock_dates)):
             item = ForeignStockItem()
             item['stock_name'] = stock_names[0].strip()
-            item['stock_date'] = stock_dates[idx].strip()
+            item['stock_date'] = stock_dates[idx].strip().replace('.', '-')
             item['foreign_trading_volume'] = foreign_trading_volumes[idx].strip()
             item['foreign_rate'] = foreign_rates[idx].strip()
             items.append(item)
