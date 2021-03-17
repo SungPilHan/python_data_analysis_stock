@@ -13,9 +13,10 @@ plt.rc('font', family=font_name)
 plt.style.use('ggplot')
 
 class Mdproject3:
-    def __init__(self):
+    def __init__(self,num):
         self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb_test')
         self.cursor = self.conn.cursor()
+        self.num=num
         self.plt_show()
     def newtime(self, x):
         return x.strftime('%Y-%m-%d %H:%M:%S')
@@ -41,23 +42,20 @@ class Mdproject3:
         for i in pddata["stock_name"]:
             stocks.add(i)
         stocks = list(stocks)
-        print(stocks)
         for i in stocks:
             newpddata = pddata[pddata["stock_name"]==i]
-            plt_index = range(len(newpddata[:num]))
+            plt_index = range(len(newpddata[:self.num]))
             fig = plt.figure(figsize=(12,6))
             ax1 = fig.add_subplot(1, 1, 1)
-            ax1.bar(plt_index, newpddata['foreign_trading_volume'][:num], color='darkblue')
-            plt.xticks(plt_index, newpddata['time_day'][:num], rotation=70, fontsize='small')
+            ax1.bar(plt_index, newpddata['foreign_trading_volume'][:self.num], color='darkblue')
+            plt.xticks(plt_index, newpddata['time_day'][:self.num], rotation=70, fontsize='small')
             plt.ticklabel_format(axis='y', style='plain')      
             ax1.xaxis.set_ticks_position('bottom')
             ax1.yaxis.set_ticks_position('left')
             ax1.set_title(i+'_foreign_stock')
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('foreign_plot {}.png'.format(i), dpi=400, bbox_inches='tight')
+            plt.savefig('foreign_plot_{}_{}.png'.format(i,self.num), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
 if __name__ == '__main__':
-    num=input("data 개수를 입력해 주세요:")
-    num=int(num)
-    Mdproject3()
+    Mdproject3(60)
