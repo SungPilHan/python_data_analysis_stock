@@ -44,20 +44,21 @@ class Mdproject3:
         print(stocks)
         for i in stocks:
             newpddata = pddata[pddata["stock_name"]==i]
-            plt_index = range(len(newpddata[:60]))
+            plt_index = range(len(newpddata[:num]))
             fig = plt.figure(figsize=(12,6))
             ax1 = fig.add_subplot(1, 1, 1)
-            ax1.bar(plt_index, newpddata['foreign_trading_volume'][:60], color='darkblue')
-            ax1.plot(plt_index,newpddata['foreign_trading_volume'][:60],color='red')
-            plt.xticks(plt_index, newpddata['time_day'][:60], rotation=70, fontsize='small')
+            ax1.bar(plt_index, newpddata['foreign_trading_volume'][:num], color='darkblue')
+            plt.xticks(plt_index, newpddata['time_day'][:num], rotation=70, fontsize='small')
             plt.ticklabel_format(axis='y', style='plain')      
             ax1.xaxis.set_ticks_position('bottom')
             ax1.yaxis.set_ticks_position('left')
             ax1.set_title(i+'_foreign_stock')
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('foreign_plot {}.png'.format(i), dpi=400, bbox_inches='tight')
+            #plt.savefig('foreign_plot {}.png'.format(i), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
-
+            plt.show()
 if __name__ == '__main__':
+    num=input("data 개수를 입력해 주세요:")
+    num=int(num)
     Mdproject3()
