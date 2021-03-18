@@ -27,6 +27,14 @@ class MyTopicInstitutViewSet(viewsets.ReadOnlyModelViewSet):
 
         return Response(serializer.data)
 
+    #기관 순매매량 높은 순으로 데이터 보여주기
+    @action(detail=False, methods=['GET'])
+    def highlist(self, requset):
+        highlist = MyTopicInstitut.objects.all().order_by('institut_trading_volume')
+        serializer = self.get_serializer(highlist, many=True)
+
+        return Response(serializer.data)
+
 class MyTopicForeignViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = MyTopicForeign.objects.all()
     serializer_class=MyTopicForeignSerializer
@@ -44,6 +52,14 @@ class MyTopicForeignViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(qs2, many=True)
         
         return Response(serializer.data)
+
+    #외국인 순매매량 높은 순으로 데이터 보여주기
+    @action(detail=False, methods=['GET'])
+    def highlist(self, requset):
+        highlist = MyTopicForeign.objects.all().order_by('foreign_trading_volume')
+        serializer = self.get_serializer(highlist, many=True)
+
+        return Response(serializer.data)  
 
 class MyTopicPriceBuyViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = MyTopicPriceBuy.objects.all()
