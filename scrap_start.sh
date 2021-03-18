@@ -19,4 +19,4 @@ scrapy crawl stockbots
 
 cat <(crontab -l) <(echo "30 8 * * * /home/ec2-user/python_data_analysis_stock/daily_jobs.sh") | sudo crontab -u ec2-user -
 cat <(crontab -l) <(echo "0 * * * * /home/ec2-user/python_data_analysis_stock/hourly_jobs.sh") | sudo crontab -u ec2-user -
-cat <(crontab -l) <(echo "*/5 * * * * /home/ec2-user/python_data_analysis_stock/every_minute_jobs.sh") | sudo crontab -u ec2-user -
+cat <(crontab -l) <(echo "*/5 9-16 * * * /home/ec2-user/python_data_analysis_stock/every_minute_jobs.sh") | sudo crontab -u ec2-user -

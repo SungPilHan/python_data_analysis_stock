@@ -102,7 +102,7 @@ class MyTopicNewsViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['GET'])
     def search(self, request):
         q1=request.query_params.get('code', None)
-        qs1=self.get_queryset().filter(stock_name=q1)
+        qs1=self.get_queryset().filter(stock_code=q1)
         serializer = self.get_serializer(qs1, many=True)
 
         q2=request.query_params.get('date', None)
