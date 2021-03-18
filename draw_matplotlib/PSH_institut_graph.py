@@ -5,17 +5,11 @@ import pymysql
 from pandas import DataFrame
 from datetime import datetime
 import matplotlib.font_manager as fm
-import os
 
 class InstitutPlot:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
     def __init__(self,num):
-        font_name=fm.FontProperties(fname=self.BASE_DIR+'/malgun.ttf').get_name()
-        plt.rcParams['axes.unicode_minus'] = False
-        plt.rc('font', family=font_name)
         plt.style.use('ggplot')
-        self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb_test')
+        self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb')
         self.cursor = self.conn.cursor()
         self.num=num
         self.draw_graph()
@@ -33,7 +27,7 @@ class InstitutPlot:
         show_db = '''SELECT * FROM my_topic_institut_table'''
         self.cursor.execute(show_db)
         data = self.cursor.fetchall()
-        pddata = pd.DataFrame(data, columns=["id","stock_name","stock_date","institut_trading_volume","create_at"])
+        pddata = pd.DataFrame(data, columns=["id","stock_name","stock_code","stock_date","institut_trading_volume","create_at"])
 
         pddata["institut_trading_volume"] = pddata["institut_trading_volume"].map(lambda x: self.strtoint(x))
 
@@ -46,11 +40,11 @@ class InstitutPlot:
         pddata = self.save_data()
         stocks = set()
 
-        for i in pddata["stock_name"]:
+        for i in pddata["stock_code"]:
             stocks.add(i)
         stocks = list(stocks)
         for i in stocks:
-            newpddata = pddata[pddata["stock_name"]==i]
+            newpddata = pddata[pddata["stock_code"]==i]
             plt_index = range(len(newpddata[:self.num]))
             fig = plt.figure(figsize=(12,6))
             ax1 = fig.add_subplot(1, 1, 1)
@@ -66,10 +60,10 @@ class InstitutPlot:
             
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('./institut_plot_{}_{}.png'.format(i,self.num), dpi=400, bbox_inches='tight')
+            plt.savefig('./{}/institut_plot_{}.png'.format(self.num,i), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
 
 if __name__ == '__main__':
-    InstitutPlot(60)    
+    InstitutPlot(60)
 
 

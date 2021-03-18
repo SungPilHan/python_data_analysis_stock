@@ -6,15 +6,10 @@ from pandas import DataFrame
 from datetime import datetime
 import matplotlib.font_manager as fm
 
-plt.rcParams['axes.unicode_minus'] = False
-font_name=fm.FontProperties(fname='C:/Windows/Fonts/malgun.ttf').get_name()
-
-plt.rc('font', family=font_name)
-plt.style.use('ggplot')
-
 class Mdproject3:
     def __init__(self,num):
-        self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb_test')
+        plt.style.use('ggplot')
+        self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb')
         self.cursor = self.conn.cursor()
         self.num=num
         self.plt_show()
@@ -30,7 +25,7 @@ class Mdproject3:
         show_db = '''SELECT * FROM my_topic_foreign_table'''
         self.cursor.execute(show_db)
         data = self.cursor.fetchall()
-        pddata = pd.DataFrame(data, columns=["id","stock_name","stock_date","foreign_trading_volume","foreign_rate","create_at"])
+        pddata = pd.DataFrame(data, columns=["id","stock_name","stock_code","stock_date","foreign_trading_volume","foreign_rate","create_at"])
         pddata["foreign_trading_volume"] = pddata["foreign_trading_volume"].map(lambda x: self.strtoint(x))
         pddata["create_at"] = pddata["create_at"].map(lambda x: self.newtime(x))
         pddata["time_day"] = pddata["stock_date"].map(lambda x: self.time_day(x))
@@ -39,11 +34,11 @@ class Mdproject3:
     def plt_show(self):
         pddata = self.save_data()
         stocks = set()
-        for i in pddata["stock_name"]:
+        for i in pddata["stock_code"]:
             stocks.add(i)
         stocks = list(stocks)
         for i in stocks:
-            newpddata = pddata[pddata["stock_name"]==i]
+            newpddata = pddata[pddata["stock_code"]==i]
             plt_index = range(len(newpddata[:self.num]))
             fig = plt.figure(figsize=(12,6))
             ax1 = fig.add_subplot(1, 1, 1)
@@ -55,7 +50,7 @@ class Mdproject3:
             ax1.set_title(i+'_foreign_stock')
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('foreign_plot_{}_{}.png'.format(i,self.num), dpi=400, bbox_inches='tight')
+            plt.savefig('./{}/foreign_plot_{}_{}.png'.format(self.num,i,self.num), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
 if __name__ == '__main__':
     Mdproject3(60)
