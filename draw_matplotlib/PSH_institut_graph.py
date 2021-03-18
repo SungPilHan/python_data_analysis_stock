@@ -5,7 +5,7 @@ import pymysql
 from pandas import DataFrame
 from datetime import datetime
 import matplotlib.font_manager as fm
-font_name=fm.FontProperties(fname='C:/Windows/Fonts/malgun.ttf').get_name()
+font_name=fm.FontProperties(fname='./malgun.ttf').get_name()
 plt.rcParams['axes.unicode_minus'] = False
 plt.rc('font', family=font_name)
 plt.style.use('ggplot')
@@ -60,7 +60,7 @@ class InstitutPlot:
             plt.ticklabel_format(axis='y', style='plain')      
             ax1.xaxis.set_ticks_position('bottom')
             ax1.yaxis.set_ticks_position('left')
-            ax1.set_title(i +'institut_stock')
+            ax1.set_title(i +'_institut_stock')
             
             plt.xlabel('day')
             plt.ylabel('volume')
