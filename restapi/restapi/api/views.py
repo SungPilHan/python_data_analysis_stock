@@ -21,6 +21,9 @@ class MyTopicInstitutViewSet(viewsets.ReadOnlyModelViewSet):
         qs=self.get_queryset().filter(stock_name=q)
         serializer = self.get_serializer(qs, many=True)
 
+        q2=request.query_params.get('code', None)
+        qs2=self.get_queryset().filter(stock_code=q2)
+        serializer = self.get_serializer(qs2, many=True)
 
         return Response(serializer.data)
 
@@ -36,6 +39,10 @@ class MyTopicForeignViewSet(viewsets.ReadOnlyModelViewSet):
         qs=self.get_queryset().filter(stock_name=q)
         serializer = self.get_serializer(qs, many=True)
 
+        q2=request.query_params.get('code', None)
+        qs2=self.get_queryset().filter(stock_code=q2)
+        serializer = self.get_serializer(qs2, many=True)
+        
         return Response(serializer.data)
 
 class MyTopicPriceBuyViewSet(viewsets.ReadOnlyModelViewSet):

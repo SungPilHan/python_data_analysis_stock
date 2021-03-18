@@ -2,6 +2,7 @@ from django.db import models
 
 class MyTopicForeign(models.Model):
     stock_name = models.TextField(db_column='stock_name')
+    stock_code = models.TextField(db_column='stock_code')
     stock_date = models.TextField(db_column='stock_date')
     foreign_trading_volume = models.TextField(db_column='foreign_trading_volume')
     foreign_rate=models.TextField(db_column='foreign_rate')
@@ -13,6 +14,7 @@ class MyTopicForeign(models.Model):
 
 class MyTopicInstitut(models.Model):
     stock_name = models.TextField(db_column='stock_name')
+    stock_code = models.TextField(db_column='stock_code')
     stock_date = models.TextField(db_column='stock_date')
     institut_trading_volume = models.TextField(db_column='institut_trading_volume')
     create_at = models.DateTimeField(blank=True, null=True)
