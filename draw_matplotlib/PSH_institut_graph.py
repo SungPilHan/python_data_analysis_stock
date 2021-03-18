@@ -5,14 +5,16 @@ import pymysql
 from pandas import DataFrame
 from datetime import datetime
 import matplotlib.font_manager as fm
-font_name=fm.FontProperties(fname='./malgun.ttf').get_name()
-plt.rcParams['axes.unicode_minus'] = False
-plt.rc('font', family=font_name)
-plt.style.use('ggplot')
-
+import os
 
 class InstitutPlot:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
     def __init__(self,num):
+        font_name=fm.FontProperties(fname=self.BASE_DIR+'/malgun.ttf').get_name()
+        plt.rcParams['axes.unicode_minus'] = False
+        plt.rc('font', family=font_name)
+        plt.style.use('ggplot')
         self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb_test')
         self.cursor = self.conn.cursor()
         self.num=num
