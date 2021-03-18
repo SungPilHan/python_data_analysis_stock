@@ -56,3 +56,12 @@ class MyTopicNews(models.Model):
     class Meta:
         managed = False
         db_table='my_topic_news_table'
+
+class GraphPath(models.Model):
+    stock_code = models.CharField(max_length=20)
+    path = models.CharField(max_length=100)
+    create_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'graph_path'
