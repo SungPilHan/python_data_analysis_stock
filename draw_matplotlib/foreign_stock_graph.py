@@ -5,22 +5,30 @@ import pymysql
 from pandas import DataFrame
 from datetime import datetime
 import matplotlib.font_manager as fm
+import os
 
 class Mdproject3:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
     def __init__(self,num):
         plt.style.use('ggplot')
         self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb')
         self.cursor = self.conn.cursor()
         self.num=num
         self.plt_show()
+
     def newtime(self, x):
         return x.strftime('%Y-%m-%d %H:%M:%S')
+
     def strtoint(self, x):
         return int(x.replace(",", ""))
+
     def time_day(self, x):
         return x.split(' ')[0]
+
     def time_second(self, x):
         return x.split(' ')[1].split(":")[2]
+
     def save_data(self):
         show_db = '''SELECT * FROM my_topic_foreign_table ORDER BY stock_date DESC'''
         self.cursor.execute(show_db)
@@ -32,9 +40,9 @@ class Mdproject3:
         pddata["time_second"] = pddata["create_at"].map(lambda x: self.time_second(x))
         return pddata
 
-    def insert_path(self, code, path):
+    def insert_path(self, code, num):
         sql = '''INSERT graph_path(stock_code, path) VALUES(%s, %s)'''
-        self.cursor.execute(sql,(code, path))
+        self.cursor.execute(sql,(code, '/media/foreign/{}/{}.png'.format(num, code)))
         self.conn.commit()
 
     def plt_show(self):
@@ -56,8 +64,10 @@ class Mdproject3:
             ax1.set_title(i+'_foreign_stock')
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('./foreign/{}/{}'.format(self.num,i), dpi=400, bbox_inches='tight')
+            plt.savefig(self.BASE_DIR+'/../restapi/media/foreign/{}/{}'.format(self.num,i), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
             plt.close()
+            self.insert_path(i, self.num)
+
 if __name__ == '__main__':
     Mdproject3(5)

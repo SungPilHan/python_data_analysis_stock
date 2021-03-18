@@ -5,8 +5,11 @@ import pymysql
 from pandas import DataFrame
 from datetime import datetime
 import matplotlib.font_manager as fm
+import os
 
 class InstitutPlot:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
     def __init__(self,num):
         plt.style.use('ggplot')
         self.conn = pymysql.connect(host='skuser55-instance.c1aoapfinmy7.us-east-1.rds.amazonaws.com',port=3306,user='admin',password='y1syitq0is',db='mydb')
@@ -34,7 +37,12 @@ class InstitutPlot:
         pddata["create_at"] = pddata["create_at"].map(lambda x: self.newtime(x))
         pddata["time_day"] = pddata["stock_date"].map(lambda x: self.time_day(x))
         return pddata
-          
+
+    def insert_path(self, code, num):
+        sql = '''INSERT graph_path(stock_code, path) VALUES(%s, %s)'''
+        self.cursor.execute(sql,(code, '/media/institut/{}/{}.png'.format(num, code)))
+        self.conn.commit()
+
     def draw_graph(self):
         
         pddata = self.save_data()
@@ -60,9 +68,10 @@ class InstitutPlot:
             
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('./institut/{}/{}'.format(self.num,i), dpi=400, bbox_inches='tight')
+            plt.savefig(self.BASE_DIR+'/../restapi/media/institut/{}/{}'.format(self.num,i), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
             plt.close()
+            self.insert_path(i, self.num)
 
 if __name__ == '__main__':
     InstitutPlot(5)
