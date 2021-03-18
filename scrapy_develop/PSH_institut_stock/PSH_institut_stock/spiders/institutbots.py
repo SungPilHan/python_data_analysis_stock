@@ -2,6 +2,7 @@ import scrapy
 from PSH_institut_stock.items import PshInstitutStockItem
 from scrapy.http import Request
 import os
+import platform
 
 class InstitutbotsSpider(scrapy.Spider):
     name = 'institutbots'
@@ -13,7 +14,13 @@ class InstitutbotsSpider(scrapy.Spider):
     def __init__(self):
         base_url = 'https://finance.naver.com/item/frgn.nhn?code={0}&page={1}'
         start_page = 1
-        with open(self.BASE_DIR + '/stock_list.txt', 'r') as stock_list:
+
+        if platform.system() == 'Windows':
+            stock_list_path = self.BASE_DIR+'\\..\\..\\..\\stock_list.txt'
+        else:
+            stock_list_path = self.BASE_DIR+'/../../../stock_list.txt'
+
+        with open(stock_list_path, 'r') as stock_list:
             for stock in stock_list:
                 for p in range(3):
                     temp_url = base_url.format(stock, start_page + p)
