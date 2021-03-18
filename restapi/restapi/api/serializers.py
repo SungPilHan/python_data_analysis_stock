@@ -1,4 +1,4 @@
-from restapi.api.models import MyTopicForeign, MyTopicInstitut, MyTopicPriceBuy, MyTopicPriceSell, MyTopicNews
+from restapi.api.models import MyTopicForeign, MyTopicInstitut, MyTopicPriceBuy, MyTopicPriceSell, MyTopicNews, GraphPath
 from rest_framework import serializers
 
 class MyTopicInstitutSerializer(serializers.ModelSerializer):
@@ -30,3 +30,9 @@ class MyTopicNewsSerializer(serializers.ModelSerializer):
         model = MyTopicNews
         fields = ['stock_code','article_title','article_url','article_author','article_date']
         read_only_fields = ('stock_code','article_title','article_url','article_author','article_date')
+
+class GraphPathSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GraphPath
+        fields = ['stock_code','path']
+        read_only_fields = ('stock_code','path')

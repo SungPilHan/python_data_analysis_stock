@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import permissions
-from restapi.api.models import MyTopicInstitut, MyTopicForeign, MyTopicPriceBuy, MyTopicPriceSell, MyTopicNews
-from restapi.api.serializers import MyTopicInstitutSerializer, MyTopicForeignSerializer, MyTopicPriceBuySerializer, MyTopicPriceSellSerializer, MyTopicNewsSerializer
+from restapi.api.models import MyTopicInstitut, MyTopicForeign, MyTopicPriceBuy, MyTopicPriceSell, MyTopicNews, GraphPath
+from restapi.api.serializers import MyTopicInstitutSerializer, MyTopicForeignSerializer, MyTopicPriceBuySerializer, MyTopicPriceSellSerializer, MyTopicNewsSerializer, GraphPathSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -24,7 +24,6 @@ class MyTopicInstitutViewSet(viewsets.ReadOnlyModelViewSet):
         q2=request.query_params.get('code', None)
         qs2=self.get_queryset().filter(stock_code=q2)
         serializer = self.get_serializer(qs2, many=True)
-
         return Response(serializer.data)
 
     #기관 순매매량 높은 순으로 데이터 보여주기
@@ -50,7 +49,6 @@ class MyTopicForeignViewSet(viewsets.ReadOnlyModelViewSet):
         q2=request.query_params.get('code', None)
         qs2=self.get_queryset().filter(stock_code=q2)
         serializer = self.get_serializer(qs2, many=True)
-        
         return Response(serializer.data)
 
     #외국인 순매매량 높은 순으로 데이터 보여주기
@@ -76,8 +74,6 @@ class MyTopicPriceBuyViewSet(viewsets.ReadOnlyModelViewSet):
         q2=request.query_params.get('code', None)
         qs2=self.get_queryset().filter(stock_code=q2)
         serializer = self.get_serializer(qs2, many=True)
-
-
         return Response(serializer.data)
 
 class MyTopicPriceSellViewSet(viewsets.ReadOnlyModelViewSet):
@@ -95,8 +91,6 @@ class MyTopicPriceSellViewSet(viewsets.ReadOnlyModelViewSet):
         q2=request.query_params.get('code', None)
         qs2=self.get_queryset().filter(stock_code=q2)
         serializer = self.get_serializer(qs2, many=True)
-
-
         return Response(serializer.data)
 
 class MyTopicNewsViewSet(viewsets.ReadOnlyModelViewSet):
@@ -114,6 +108,17 @@ class MyTopicNewsViewSet(viewsets.ReadOnlyModelViewSet):
         q2=request.query_params.get('date', None)
         qs2=self.get_queryset().filter(stock_code=q2)
         serializer = self.get_serializer(qs2, many=True)
+        return Response(serializer.data)
 
+class GraphPathViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = GraphPath.objects.all()
+    serializer_class=GraphPathSerializer
 
+    permission_classes= [permissions.IsAuthenticated]
+    
+    @action(detail=False, methods=['GET'])
+    def search(self, request):
+        q1=request.query_params.get('code', None)
+        qs1=self.get_queryset().filter(stock_code=q1)
+        serializer = self.get_serializer(qs1, many=True)
         return Response(serializer.data)

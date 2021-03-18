@@ -26,6 +26,7 @@ router.register(r'foreign', views.MyTopicForeignViewSet)
 router.register(r'buy', views.MyTopicPriceBuyViewSet)
 router.register(r'sell', views.MyTopicPriceSellViewSet)
 router.register(r'news', views.MyTopicNewsViewSet)
+router.register(r'graph_path', views.GraphPathViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
