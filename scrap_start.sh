@@ -5,6 +5,8 @@ chmod 755 daily_jobs.sh hourly_jobs.sh every_minute_jobs.sh
 cd /home/ec2-user/python_data_analysis_stock/scrapy_develop/tops
 scrapy crawl topsbots
 
+python /home/ec2-user/python_data_analysis_stock/scrapy_develop/truncate_db.py
+
 cd /home/ec2-user/python_data_analysis_stock/scrapy_develop/HSP_stock_news
 scrapy crawl newsbots
 
