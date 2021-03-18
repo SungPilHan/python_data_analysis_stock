@@ -22,7 +22,7 @@ class Mdproject3:
     def time_second(self, x):
         return x.split(' ')[1].split(":")[2]
     def save_data(self):
-        show_db = '''SELECT * FROM my_topic_foreign_table'''
+        show_db = '''SELECT * FROM my_topic_foreign_table ORDER BY stock_date DESC'''
         self.cursor.execute(show_db)
         data = self.cursor.fetchall()
         pddata = pd.DataFrame(data, columns=["id","stock_name","stock_code","stock_date","foreign_trading_volume","foreign_rate","create_at"])
@@ -50,7 +50,8 @@ class Mdproject3:
             ax1.set_title(i+'_foreign_stock')
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('./{}/foreign_plot_{}_{}.png'.format(self.num,i,self.num), dpi=400, bbox_inches='tight')
+            plt.savefig('./foreign/{}/{}'.format(self.num,i), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
+            plt.close()
 if __name__ == '__main__':
-    Mdproject3(60)
+    Mdproject3(5)

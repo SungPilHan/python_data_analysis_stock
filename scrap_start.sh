@@ -1,5 +1,7 @@
 #! /bin/bash
 
+chmod 755 daily_jobs.sh hourly_jobs.sh every_minute_jobs.sh
+
 cd /home/ec2-user/python_data_analysis_stock/scrapy_develop/tops
 scrapy crawl topsbots
 

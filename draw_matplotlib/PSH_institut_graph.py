@@ -24,7 +24,7 @@ class InstitutPlot:
         return x.split(' ')[0]
 
     def save_data(self):
-        show_db = '''SELECT * FROM my_topic_institut_table'''
+        show_db = '''SELECT * FROM my_topic_institut_table ORDER BY stock_date DESC'''
         self.cursor.execute(show_db)
         data = self.cursor.fetchall()
         pddata = pd.DataFrame(data, columns=["id","stock_name","stock_code","stock_date","institut_trading_volume","create_at"])
@@ -60,10 +60,11 @@ class InstitutPlot:
             
             plt.xlabel('day')
             plt.ylabel('volume')
-            plt.savefig('./{}/institut_plot_{}.png'.format(self.num,i), dpi=400, bbox_inches='tight')
+            plt.savefig('./institut/{}/{}'.format(self.num,i), dpi=400, bbox_inches='tight')
             ax1.set_xlim(ax1.get_xlim()[::-1])
+            plt.close()
 
 if __name__ == '__main__':
-    InstitutPlot(60)
+    InstitutPlot(5)
 
 
