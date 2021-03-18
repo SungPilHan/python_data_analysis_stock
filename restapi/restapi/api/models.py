@@ -58,8 +58,8 @@ class MyTopicNews(models.Model):
         db_table='my_topic_news_table'
 
 class GraphPath(models.Model):
-    stock_code = models.TextField(db_column='stock_code')
-    path = models.TextField(db_column='path')
+    stock_code = models.CharField(max_length=20, db_column='stock_code')
+    path = models.CharField(max_length=100, db_column='path')
     create_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
