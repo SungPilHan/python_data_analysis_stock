@@ -31,6 +31,12 @@ class Mdproject3:
         pddata["time_day"] = pddata["stock_date"].map(lambda x: self.time_day(x))
         pddata["time_second"] = pddata["create_at"].map(lambda x: self.time_second(x))
         return pddata
+
+    def insert_path(self, code, path):
+        sql = '''INSERT graph_path(stock_code, path) VALUES(%s, %s)'''
+        self.cursor.execute(sql,(code, path))
+        self.conn.commit()
+
     def plt_show(self):
         pddata = self.save_data()
         stocks = set()
